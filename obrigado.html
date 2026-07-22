@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obrigado — Prompt Raddar</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23E5A82E'/%3E%3Cpath d='M30 35 L70 35 L65 65 L35 65 Z' fill='%230D1B3E'/%3E%3Ctext x='50' y='58' font-size='18' font-weight='bold' fill='%23E5A82E' text-anchor='middle' font-family='sans-serif'%3ERT%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(160deg, #0A142E 0%, #0D1B3E 50%, #111D44 100%);
+      color: #fff;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+    }
+
+    /* ── TOPO (check + título) ── */
+    .topo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 24px 0 32px;
+    }
+
+    .check {
+      width: 64px;
+      height: 64px;
+      background: #E5A82E;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .check svg { width: 32px; height: 32px; }
+
+    .topo h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .topo p {
+      font-size: 15px;
+      color: #B0B8CF;
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .topo .divider {
+      width: 48px;
+      height: 3px;
+      background: #E5A82E;
+      border-radius: 2px;
+      margin: 20px auto 0;
+    }
+
+    /* ── SEÇÃO DE PLANOS ── */
+    .planos {
+      padding: 8px 0 24px;
+    }
+
+    .planos .intro {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .planos .intro h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .planos .intro p {
+      font-size: 14px;
+      color: #B0B8CF;
+    }
+
+    .planos-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    /* ── CARD DE PLANO ── */
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:active {
+      border-color: #E5A82E;
+      background: rgba(229, 168, 46, 0.08);
+    }
+
+    .card .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #E5A82E;
+      margin-bottom: 12px;
+    }
+
+    .card .tag.destaque {
+      background: #E5A82E;
+      color: #0D1B3E;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 10px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .card .duracao {
+      font-size: 13px;
+      color: #888CA8;
+      margin-bottom: 12px;
+    }
+
+    .card .preco {
+      font-size: 28px;
+      font-weight: 800;
+      color: #E5A82E;
+      margin-bottom: 4px;
+    }
+
+    .card .preco-label {
+      font-size: 12px;
+      color: #6B7294;
+      margin-bottom: 16px;
+    }
+
+    .card .descricao {
+      font-size: 13px;
+      color: #B0B8CF;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      padding: 0 4px;
+    }
+
+    .card .btn-plano {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: transparent;
+      color: #E5A82E;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 14px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 2px solid #E5A82E;
+      transition: all 0.3s ease;
+      margin-top: auto;
+    }
+
+    .card .btn-plano:active {
+      background: #E5A82E;
+      color: #0D1B3E;
+    }
+
+    /* card em destaque (recomendado) */
+    .card.destaque-card {
+      border-color: #E5A82E;
+      background: rgba(229, 168, 46, 0.06);
+      position: relative;
+    }
+
+    .card.destaque-card::before {
+      content: '★ MAIS VENDIDO';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #E5A82E;
+      color: #0D1B3E;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 3px 14px;
+      border-radius: 10px;
+    }
+
+    /* badges de economia */
+    .card .economia {
+      font-size: 12px;
+      color: #6BCB7E;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    /* ── RODAPÉ ── */
+    .footer {
+      text-align: center;
+      padding: 24px 0 8px;
+      width: 100%;
+    }
+
+    .footer p {
+      font-size: 12px;
+      color: #4B5274;
+    }
+
+    .footer .brand {
+      color: #E5A82E;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .footer .brand a {
+      color: #E5A82E;
+      font-weight: 600;
+      margin-top: 2px;
+      text-decoration: none;
+    }    
+    /* ══════════════════════════════════
+       TABLET  (≥640px)
+       ══════════════════════════════════ */
+    @media (min-width: 640px) {
+      body { padding: 48px 32px; }
+
+      .topo { padding: 32px 0 40px; }
+      .check { width: 72px; height: 72px; margin-bottom: 24px; }
+      .check svg { width: 36px; height: 36px; }
+      .topo h1 { font-size: 30px; letter-spacing: -1px; }
+      .topo p { font-size: 16px; }
+
+      .planos .intro { margin-bottom: 32px; }
+      .planos .intro h2 { font-size: 22px; }
+      .planos .intro p { font-size: 15px; }
+
+      .planos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      /* card destaque ocupa linha inteira no tablet */
+      .card.destaque-card { grid-column: 1 / -1; }
+
+      .card { padding: 28px 24px; }
+      .card .btn-plano:hover { background: #E5A82E; color: #0D1B3E; }
+      .card .btn-plano:active { transform: scale(1); }
+    }
+
+    /* ══════════════════════════════════
+       DESKTOP  (≥960px)
+       ══════════════════════════════════ */
+    @media (min-width: 960px) {
+      body { padding: 64px 32px; }
+
+      .topo h1 { font-size: 34px; }
+
+      .planos-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .card.destaque-card { grid-column: auto; }
+
+      .card .preco { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ═══ TOPO ═══ -->
+    <div class="topo">
+      <div class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0D1B3E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
+      <h1>Pedido confirmado! 🚀</h1>
+      <p>Seu PDF do <strong>Prompt Raddar</strong> já foi enviado para o e-mail cadastrado.</p>
+      <div class="divider"></div>
+    </div>
+
+    <!-- ═══ PLANOS ═══ -->
+    <div class="planos">
+      <div class="intro">
+        <h2>Agora, leve a IA para o seu dia a dia</h2>
+        <p>Na consultoria 1:1, a gente aplica os prompts no <strong>seu</strong> negócio.</p>
+      </div>
+
+      <div class="planos-grid">
+
+        <!-- PLANO 1h -->
+        <div class="card">
+          <div class="tag">EXPRESS</div>
+          <h3>Consultoria 1h</h3>
+          <div class="duracao">Sessão única</div>
+          <div class="preco">R$ 170</div>
+          <div class="preco-label">à vista</div>
+          <div class="descricao">
+            Resolva <strong>1 problema urgente</strong> com acompanhamento ao vivo. Ideal para testar o método.
+          </div>
+          <a href="https://pay.kiwify.com.br/SEU_LINK_1H" class="btn-plano" target="_blank" rel="noopener">
+            AGENDAR 1H &ensp;→
+          </a>
+        </div>
+
+        <!-- PLANO 2h (destaque) -->
+        <div class="card destaque-card">
+          <div class="tag destaque">RECOMENDADO</div>
+          <h3>Consultoria 2h</h3>
+          <div class="duracao">Sessão única</div>
+          <div class="preco">R$ 300</div>
+          <div class="preco-label">à vista</div>
+          <div class="economia">Equivale a R$ 150/h</div>
+          <div class="descricao">
+            Aprofunde em <strong>2 áreas</strong> do seu negócio. Você sai com processos prontos para usar.
+          </div>
+          <a href="https://pay.kiwify.com.br/SEU_LINK_2H" class="btn-plano" target="_blank" rel="noopener">
+            AGENDAR 2H &ensp;→
+          </a>
+        </div>
+
+        <!-- PLANO 5h -->
+        <div class="card">
+          <div class="tag">PACOTE</div>
+          <h3>Transformação</h3>
+          <div class="duracao">5 sessões de 1h</div>
+          <div class="preco">R$ 650</div>
+          <div class="preco-label">à vista (R$ 130/h)</div>
+          <div class="economia">💰 Economia de R$ 200</div>
+          <div class="descricao">
+            Cubra <strong>todos os 5 blocos</strong> com acompanhamento semanal. Sua rotina transformada.
+          </div>
+          <a href="https://pay.kiwify.com.br/SEU_LINK_5H" class="btn-plano" target="_blank" rel="noopener">
+            QUERO O PACOTE &ensp;→
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ INFO EXTRA ═══ -->
+    <div style="text-align: center; padding: 8px 0 16px;">
+      <p style="font-size: 13px; color: #6B7294;">
+        ✓ Após a compra, você receberá o link para agendar sua sessão por e-mail
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <p>© 2026 — Todos os direitos reservados.</p>
+    <p class="brand"><a href="http://www.raddartools.com.br/" target="_blank">RaddarTools</a></p>
+  </footer>
+</body>
+</html>
