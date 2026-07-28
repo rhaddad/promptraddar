@@ -300,14 +300,16 @@
 
     <!-- ═══ TOPO ═══ -->
     <div class="topo">
-      <div class="check">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#0D1B3E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12" />
-        </svg>
+      <div id="confirmacaoLead">
+        <div class="check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0D1B3E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>        
+        <h1>Pedido confirmado! 🚀</h1>
+        <p>Seu PDF do <strong>Prompt Raddar</strong> já foi enviado para o e-mail cadastrado.</p>
+        <div class="divider"></div>
       </div>
-      <h1>Pedido confirmado! 🚀</h1>
-      <p>Seu PDF do <strong>Prompt Raddar</strong> já foi enviado para o e-mail cadastrado.</p>
-      <div class="divider"></div>
     </div>
 
     <!-- ═══ PLANOS ═══ -->
@@ -383,5 +385,11 @@
     <p>© 2026 — Todos os direitos reservados.</p>
     <p class="brand"><a href="http://www.raddartools.com.br/" target="_blank">RaddarTools</a></p>
   </footer>
+  <script>
+    if (window.location.search.includes('source=email')) {
+      document.getElementById('confirmacaoLead').style.display = 'none';
+    }
+  </script>
+
 </body>
 </html>
